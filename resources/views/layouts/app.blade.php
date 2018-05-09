@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
+    <meta Http-Equiv="Cache-Control" Content="no-cache">
+    <meta Http-Equiv="Pragma" Content="no-cache">
+    <meta Http-Equiv="Expires" Content="0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,6 +14,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -36,7 +40,18 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        &nbsp;<li><a href="{{route('reservation.create')}}">Reservation</a></li>
+                        <li>
+                            <a  href="{{route('cart.index')}}">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                <span id="totalQty" class="badge">
+                                    @if(Session::has('cart'))
+                                        {{Session::get('cart')->totalQty}}
+                                        @else 0
+                                    @endif
+                                </span>
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -52,6 +67,12 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
+                                    <li>
+                                        @if(Auth::user()->admin)
+                                        <a href="{{route('admin')}}">Admin Page</a>
+                                            @endif
+                                    </li>
+                                    <li><a href="{{route('profile')}}">User Profile</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -70,6 +91,7 @@
                 </div>
             </div>
         </nav>
+
 
         @yield('content')
     </div>

@@ -21,3 +21,15 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
     ];
 });
+$factory->define(App\Menu::class, function (Faker $faker) {
+    return [
+        'title' =>$faker->word,
+    ];
+});
+$factory->define(App\Dish::class, function (Faker $faker) {
+    return [
+        'title' =>$faker->word,
+        'price' =>$faker->randomDigitNotNull,
+        'description' =>$faker->paragraph,
+    ];
+});
